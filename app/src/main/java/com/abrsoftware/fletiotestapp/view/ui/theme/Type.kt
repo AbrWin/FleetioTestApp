@@ -1,6 +1,7 @@
 package com.abrsoftware.fletiotestapp.view.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -26,3 +27,12 @@ val Typography = Typography(
     )
     */
 )
+
+fun PersonalStyle(color: Color): TextStyle {
+    return TextStyle(
+        color = color,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = FontFamily.Default,
+    )
+}

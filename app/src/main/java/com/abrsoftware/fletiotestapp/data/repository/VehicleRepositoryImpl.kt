@@ -23,7 +23,6 @@ class VehicleRepositoryImpl @Inject constructor(
             )
 
             val response = api.getListVehicles(pagi.toString(), headers)
-            Log.d("MSJ", response.message())
             (response.body() as List<VehicleModel>).map { it.toDomain() }
         }
     }
