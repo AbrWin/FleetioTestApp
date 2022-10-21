@@ -25,13 +25,14 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.abrsoftware.fletiotestapp.R
+import com.abrsoftware.fletiotestapp.domain.vehicle.Vehicle
 import com.abrsoftware.fletiotestapp.view.components.BubbleText
 import com.abrsoftware.fletiotestapp.view.ui.Thumb
 import com.abrsoftware.fletiotestapp.view.ui.theme.DarkBlue
 import com.abrsoftware.fletiotestapp.view.ui.theme.PersonalStyle
 
 @Composable
-fun VehicleDetail() {
+fun VehicleDetail(vehicle: Vehicle) {
     val names = listOf(
         "Abraham",
         "Sanchez",
@@ -76,7 +77,7 @@ fun VehicleDetail() {
                     .fillMaxHeight()
                     .background(Color.White),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data("https://d8g9nhlfs6lwh.cloudfront.net/api/file/rgaLfSDRguojPXU8Wl3w?signature=bb03b55b1aadb3a7488d080a9f1052dc02dd431b0eb2d6d171137313e1ee7001&policy=eyJoYW5kbGUiOiJyZ2FMZlNEUmd1b2pQWFU4V2wzdyIsImV4cGlyeSI6NDUzNDk0OTM0MywiY2FsbCI6WyJyZWFkIl19")
+                    .data(vehicle.default_image_url)
                     .crossfade(100)
                     .build(),
                 placeholder = painterResource(R.drawable.car_placeholder),
@@ -130,5 +131,4 @@ fun VehicleDetail() {
 @Preview
 @Composable
 fun PrevVehicleDetail() {
-    VehicleDetail()
 }

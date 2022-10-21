@@ -1,5 +1,6 @@
 package com.abrsoftware.fletiotestapp.ui.navigation
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
@@ -22,11 +23,20 @@ fun Navigation() {
         startDestination = NavItem.VehicleListNavItem.route,
     ) {
         composable(NavItem.VehicleListNavItem) {
-            VehicleDetail()
+            VehicleScreenList(onNavigate = { vehicle ->
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "vehicle",
+                    value = vehicle
+                )
+                navController.navigate(NavItem.ProfileNavItem.route)
+            })
         }
         composable(NavItem.ProfileNavItem) {
-            val account = navController.previousBackStackEntry?.savedStateHandle?.get<Vehicle>("vehicle")
-            //ProfileScreen()
+            val vehicle =
+                navController.previousBackStackEntry?.savedStateHandle?.get<Vehicle>("vehicle")
+            if(vehicle != null){
+                VehicleDetail(vehicle = vehicle)
+            }
         }
     }
 }

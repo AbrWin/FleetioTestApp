@@ -9,7 +9,7 @@ sealed class NavItem(
     private val navArgs: List<NavArgs> = emptyList()
 ) {
     object VehicleListNavItem : NavItem("vehicleList")
-    object ProfileNavItem : NavItem("profile")
+    object ProfileNavItem : NavItem("vehicleDetail")
     object DetailNavItem : NavItem("detail", listOf(NavArgs.VehicleId)) {
         fun createRoute(mediaId: Int) = "$baseRoute/$mediaId"
     }

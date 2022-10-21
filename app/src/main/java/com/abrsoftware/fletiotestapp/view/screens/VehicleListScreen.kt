@@ -12,6 +12,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.abrsoftware.fletiotestapp.R
+import com.abrsoftware.fletiotestapp.domain.vehicle.Vehicle
 import com.abrsoftware.fletiotestapp.view.VehicleItem
 import com.abrsoftware.fletiotestapp.view.components.BubbleText
 import com.abrsoftware.fletiotestapp.view.components.ErrorItem
@@ -22,7 +23,8 @@ import com.abrsoftware.fletiotestapp.view.viewmodel.VehicleListViewModel
 
 @Composable
 fun VehicleScreenList(
-    viewModel: VehicleListViewModel = hiltViewModel()
+    viewModel: VehicleListViewModel = hiltViewModel(),
+    onNavigate: (account: Vehicle) -> Unit
 ){
     val vehicleList = viewModel.usersPager.collectAsLazyPagingItems()
 
@@ -46,7 +48,8 @@ fun VehicleScreenList(
                     items(vehicleList) { vehicleListData ->
                         vehicleListData?.let { vehicle->
                             VehicleItem(
-                                vehicle = vehicle
+                                vehicle = vehicle,
+                                onNavigate = onNavigate
                             )
                         }
                         Spacer(modifier = Modifier.height(18.dp))
