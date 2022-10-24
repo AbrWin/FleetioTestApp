@@ -51,7 +51,6 @@ fun VehicleScreenList(
             ) {
 
                 LazyColumn {
-
                     items(vehicleList) { vehicleListData ->
                         vehicleListData?.let { vehicle->
                             VehicleItem(
@@ -74,8 +73,6 @@ fun VehicleScreenList(
                         }
                     }
                 }
-
-
             }
         }
     }

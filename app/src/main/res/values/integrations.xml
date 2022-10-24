@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="end_point">https://secure.fleetio.com/</string>
+    <string name="token_auth">Token token=a3ddc620b35b609682192c167de1b1f3f5100387</string>
+    <string name="token_account">798819214b</string>
+</resources>

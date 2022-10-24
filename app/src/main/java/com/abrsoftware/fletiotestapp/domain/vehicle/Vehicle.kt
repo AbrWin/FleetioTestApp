@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Vehicle(
-    val id: Int?,
+    val id: String?,
     val vehicle_status_color: String?,
     val default_image_url: String?,
     val vehicle_status_name: String?,

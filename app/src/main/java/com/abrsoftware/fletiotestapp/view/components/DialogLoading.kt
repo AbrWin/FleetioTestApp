@@ -1,6 +1,5 @@
 package com.abrsoftware.fletiotestapp.view
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,7 +23,6 @@ fun DialogLoading() {
         contentAlignment = Alignment.Center
     )
     {
-        Log.d("DIALOG","DIALOG")
         Card(
             modifier = Modifier
                 .width(200.dp)

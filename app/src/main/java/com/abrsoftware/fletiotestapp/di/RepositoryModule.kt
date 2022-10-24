@@ -1,6 +1,8 @@
 package com.abrsoftware.fletiotestapp.di
 
+import com.abrsoftware.fletiotestapp.data.repository.CommentRepositoryImp
 import com.abrsoftware.fletiotestapp.data.repository.VehicleRepositoryImpl
+import com.abrsoftware.fletiotestapp.domain.repository.CommentRepository
 import com.abrsoftware.fletiotestapp.domain.repository.VehicleRepository
 import dagger.Binds
 import dagger.Module
@@ -19,4 +21,11 @@ abstract class RepositoryModule {
     abstract fun bindVehicleListRepository(
         vehicleRepositoryImpl: VehicleRepositoryImpl
     ): VehicleRepository
+
+
+    @Binds
+    @Singleton
+    abstract fun bindCommentListRepository(
+        vehicleRepositoryImpl: CommentRepositoryImp
+    ): CommentRepository
 }

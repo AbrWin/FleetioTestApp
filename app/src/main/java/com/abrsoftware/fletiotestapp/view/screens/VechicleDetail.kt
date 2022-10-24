@@ -1,19 +1,18 @@
 package com.abrsoftware.fletiotestapp.view.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,13 +31,20 @@ import coil.request.ImageRequest
 import com.abrsoftware.fletiotestapp.R
 import com.abrsoftware.fletiotestapp.domain.vehicle.Vehicle
 import com.abrsoftware.fletiotestapp.view.components.BubbleText
-import com.abrsoftware.fletiotestapp.view.ui.Thumb
 import com.abrsoftware.fletiotestapp.view.ui.theme.DarkBlue
-import com.abrsoftware.fletiotestapp.view.ui.theme.GreenLight
 import com.abrsoftware.fletiotestapp.view.ui.theme.PersonalStyle
+import androidx.compose.runtime.*
+import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.abrsoftware.fletiotestapp.view.components.CircularProgress
+import com.abrsoftware.fletiotestapp.view.ui.theme.BlueF
+import com.abrsoftware.fletiotestapp.view.viewmodel.CommentViewModel
 
 @Composable
-fun VehicleDetail(vehicle: Vehicle) {
+fun VehicleDetail(
+    vehicle: Vehicle,
+    viewModel: CommentViewModel = hiltViewModel()
+) {
     val pinsVehicle = listOf(
         stringResource(R.string.id_vehicle).plus(" ") + vehicle.vehicle_status_id.toString(),
         stringResource(R.string.name_type).plus(" ") + vehicle.vehicle_type_name.toString(),
@@ -46,6 +52,7 @@ fun VehicleDetail(vehicle: Vehicle) {
         stringResource(R.string.fuel_volume_units).plus(" ") + vehicle.fuel_volume_units.toString(),
         stringResource(R.string.ownership).plus(" ") + vehicle.ownership.toString()
     )
+    var isButtonVisible by remember { mutableStateOf(true) }
 
     Column(
         modifier = Modifier
@@ -69,7 +76,6 @@ fun VehicleDetail(vehicle: Vehicle) {
                 contentDescription = "baseImage",
                 contentScale = ContentScale.Crop
             )
-
         }
         Box(
             modifier = Modifier
@@ -110,34 +116,51 @@ fun VehicleDetail(vehicle: Vehicle) {
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                Spacer(
-                    modifier = Modifier
-                        .height(60.dp)
-                        .fillMaxWidth()
-                )
-                ExtendedFloatingActionButton(
-                    modifier = Modifier,
-                    onClick = { Log.d("ID_VEHICLE->", vehicle.id.toString()) },
-                    icon = {
-                        Icon(
-                            Icons.Filled.Face,
-                            contentDescription = "Favorite"
-                        )
-                    },
-                    text = {
-                        Text(
-                            stringResource(id = R.string.load_comments),
-                            style = PersonalStyle(Color.Black).copy(fontSize = 16.sp)
-                        )
+
+                if (isButtonVisible) {
+                    Spacer(
+                        modifier = Modifier
+                            .height(60.dp)
+                            .fillMaxWidth()
+                    )
+                    ExtendedFloatingActionButton(
+                        modifier = Modifier,
+                        onClick = {
+                            isButtonVisible = false
+                            viewModel.loadComments(vehicle.id.toString())
+                        },
+                        icon = {
+                            Icon(
+                                Icons.Filled.Face,
+                                contentDescription = "Favorite"
+                            )
+                        },
+                        text = {
+                            Text(
+                                stringResource(id = R.string.load_comments),
+                                style = PersonalStyle(Color.Black).copy(fontSize = 16.sp)
+                            )
+                        }
+                    )
+                }else{
+                    if(viewModel.state.isLoading) {
+                        CircularProgress(BlueF)
                     }
-                )
+                    viewModel.state.error?.let { error ->
+                        BubbleText(title = error)
+                    }
+                    if(viewModel.state.commentList != null && viewModel.state.commentList!!.size > 0){
+                        LazyColumn(
+                            modifier = Modifier.padding(10.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
+                            content = {
+                                items(viewModel.state.commentList!!) { comment ->
+                                    CommentItem(comment)
+                                }
+                            })
+                    }
+                }
             }
         }
     }
-}
-
-
-@Preview
-@Composable
-fun PrevVehicleDetail() {
 }

@@ -16,13 +16,17 @@ fun LoadingItem() {
             .wrapContentHeight(),
         contentAlignment = Alignment.Center
     ) {
-        CircularProgressIndicator(
-            color = Color.White,
-            modifier = Modifier
-                .width(52.dp)
-                .height(52.dp)
-                .padding(8.dp),
-            strokeWidth = 5.dp
-        )
+        CircularProgress(Color.White)
     }
+}
+@Composable
+fun CircularProgress(color: Color) {
+    return CircularProgressIndicator(
+        color = color,
+        modifier = Modifier
+            .width(52.dp)
+            .height(52.dp)
+            .padding(8.dp),
+        strokeWidth = 5.dp
+    )
 }

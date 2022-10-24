@@ -1,9 +1,12 @@
 package com.abrsoftware.fletiotestapp.di
 
+import android.content.Context
+import com.abrsoftware.fletiotestapp.R
 import com.abrsoftware.fletiotestapp.data.remote.FleetioTestApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,9 +19,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideVehicleTestApi(): FleetioTestApi {
+    fun provideVehicleTestApi(@ApplicationContext context: Context): FleetioTestApi {
         return Retrofit.Builder()
-            .baseUrl("https://secure.fleetio.com/")
+            .baseUrl(context.getString(R.string.end_point))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create()

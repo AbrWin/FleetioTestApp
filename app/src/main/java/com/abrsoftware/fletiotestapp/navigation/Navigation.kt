@@ -1,6 +1,5 @@
 package com.abrsoftware.fletiotestapp.ui.navigation
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
@@ -46,8 +45,7 @@ private fun NavGraphBuilder.composable(
     content: @Composable (NavBackStackEntry) -> Unit
 ) {
     composable(
-        route = navItem.route,
-        arguments = navItem.args
+        route = navItem.route
     ) {
         content(it)
     }
