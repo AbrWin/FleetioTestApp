@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.abrsoftware.fletiotestapp.R
+import com.abrsoftware.fletiotestapp.view.ui.theme.GreenLight
 import com.abrsoftware.fletiotestapp.view.ui.theme.PersonalStyle
 
 @Composable
@@ -22,7 +23,7 @@ fun ToolBar(title: String) {
             .padding()
             .fillMaxWidth()
             .height(55.dp)
-            .background(Color.Blue.copy(0.6f)),
+            .background(MaterialTheme.colors.secondary),
         contentAlignment = Alignment.Center
     )
     {

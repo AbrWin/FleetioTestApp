@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">FletioTestApp</string>
-    <string name="img_fake">https://prestigemotorsport.com.au/wp-content/uploads/car_no_image_small.jpg</string>
     <string name="title_listvehicle">VEHICLE LIST</string>
     <string name="title_comments">VEHICLE COMMENTS</string>
-
+    <string name="id_title">Vehicle model: </string>
+    <string name="id_vehicle">Id vehicle: </string>
+    <string name="name_type">Name type: </string>
+    <string name="color_car">Color car: </string>
+    <string name="fuel_volume_units">Fuel volume units: </string>
+    <string name="ownership">Ownership: </string>
+    <string name="load_comments">LOAD COMMENTS</string>
 </resources>

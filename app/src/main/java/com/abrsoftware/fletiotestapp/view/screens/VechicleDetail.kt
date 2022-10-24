@@ -1,13 +1,18 @@
 package com.abrsoftware.fletiotestapp.view.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,39 +34,19 @@ import com.abrsoftware.fletiotestapp.domain.vehicle.Vehicle
 import com.abrsoftware.fletiotestapp.view.components.BubbleText
 import com.abrsoftware.fletiotestapp.view.ui.Thumb
 import com.abrsoftware.fletiotestapp.view.ui.theme.DarkBlue
+import com.abrsoftware.fletiotestapp.view.ui.theme.GreenLight
 import com.abrsoftware.fletiotestapp.view.ui.theme.PersonalStyle
 
 @Composable
 fun VehicleDetail(vehicle: Vehicle) {
-    val names = listOf(
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez",
-        "Abraham",
-        "Sanchez",
-        "Juarez"
+    val pinsVehicle = listOf(
+        stringResource(R.string.id_vehicle).plus(" ") + vehicle.vehicle_status_id.toString(),
+        stringResource(R.string.name_type).plus(" ") + vehicle.vehicle_type_name.toString(),
+        stringResource(R.string.color_car).plus(" ") + vehicle.vehicle_status_color.toString(),
+        stringResource(R.string.fuel_volume_units).plus(" ") + vehicle.fuel_volume_units.toString(),
+        stringResource(R.string.ownership).plus(" ") + vehicle.ownership.toString()
     )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -94,8 +79,10 @@ fun VehicleDetail(vehicle: Vehicle) {
         ) {
             LazyRow(
                 content = {
-                    items(names) { weatherData ->
-                        BubbleText(title = weatherData)
+                    items(pinsVehicle) { value ->
+                        if (!value.contains("null")) {
+                            BubbleText(title = value)
+                        }
                     }
                 })
         }
@@ -106,13 +93,14 @@ fun VehicleDetail(vehicle: Vehicle) {
                 .background(Color.White)
         ) {
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(65.dp)
-                        .background(Color.Blue.copy(0.6f)),
+                        .background(MaterialTheme.colors.secondary),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -122,6 +110,27 @@ fun VehicleDetail(vehicle: Vehicle) {
                         overflow = TextOverflow.Ellipsis
                     )
                 }
+                Spacer(
+                    modifier = Modifier
+                        .height(60.dp)
+                        .fillMaxWidth()
+                )
+                ExtendedFloatingActionButton(
+                    modifier = Modifier,
+                    onClick = { Log.d("ID_VEHICLE->", vehicle.id.toString()) },
+                    icon = {
+                        Icon(
+                            Icons.Filled.Face,
+                            contentDescription = "Favorite"
+                        )
+                    },
+                    text = {
+                        Text(
+                            stringResource(id = R.string.load_comments),
+                            style = PersonalStyle(Color.Black).copy(fontSize = 16.sp)
+                        )
+                    }
+                )
             }
         }
     }

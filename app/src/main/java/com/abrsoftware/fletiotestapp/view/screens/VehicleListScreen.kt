@@ -13,6 +13,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.abrsoftware.fletiotestapp.R
 import com.abrsoftware.fletiotestapp.domain.vehicle.Vehicle
+import com.abrsoftware.fletiotestapp.view.DialogLoading
 import com.abrsoftware.fletiotestapp.view.VehicleItem
 import com.abrsoftware.fletiotestapp.view.components.BubbleText
 import com.abrsoftware.fletiotestapp.view.components.ErrorItem
@@ -27,11 +28,15 @@ fun VehicleScreenList(
     onNavigate: (account: Vehicle) -> Unit
 ){
     val vehicleList = viewModel.usersPager.collectAsLazyPagingItems()
+    var isLoading  = false
 
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        Column() {
+        Column {
+            if (vehicleList.itemCount == 0){
+                DialogLoading()
+            }
             ToolBar(title = stringResource(R.string.title_listvehicle))
             Spacer(
                 modifier = Modifier
@@ -44,7 +49,9 @@ fun VehicleScreenList(
                     .fillMaxSize()
                     .background(DarkBlue)
             ) {
+
                 LazyColumn {
+
                     items(vehicleList) { vehicleListData ->
                         vehicleListData?.let { vehicle->
                             VehicleItem(
@@ -58,6 +65,7 @@ fun VehicleScreenList(
                         is LoadState.NotLoading -> Unit
                         LoadState.Loading -> {
                             item { LoadingItem() }
+
                         }
                         is LoadState.Error -> {
                             item {
@@ -66,6 +74,8 @@ fun VehicleScreenList(
                         }
                     }
                 }
+
+
             }
         }
     }

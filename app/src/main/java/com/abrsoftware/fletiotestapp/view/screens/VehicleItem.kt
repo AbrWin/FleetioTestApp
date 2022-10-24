@@ -25,8 +25,6 @@ fun VehicleItem(
     textColor: Color = Color.White,
     onNavigate: (account: Vehicle) -> Unit
 ) {
-    val imgPath =
-        if (vehicle.default_image_url == null) stringResource(R.string.img_fake) else vehicle.default_image_url
     Card(
         elevation = 4.dp,
         modifier = Modifier
@@ -37,7 +35,7 @@ fun VehicleItem(
             },
         shape = RoundedCornerShape(16.dp),
     ) {
-        Thumb(pathImg = imgPath)
+        Thumb(pathImg = vehicle.default_image_url.toString())
         Box(
             modifier = Modifier
                 .height(40.dp)
@@ -55,7 +53,7 @@ fun VehicleItem(
                     .height(40.dp)
                     .padding(start = 10.dp, top = 8.dp),
                 textAlign = TextAlign.Start,
-                text = "Vehicle model: ${vehicle.id}",
+                text = stringResource(R.string.id_title)+" "+ vehicle.vehicle_status_id.toString(),
                 color = textColor,
                 fontWeight = FontWeight.Bold
             )
