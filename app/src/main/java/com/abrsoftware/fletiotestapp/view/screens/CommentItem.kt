@@ -66,5 +66,6 @@ fun CommentItem(comment: Comment) {
                 Text(comment.created_at.toString(), color = Color.Gray,fontSize = 12.sp)
             }
         }
+
     }
 }
