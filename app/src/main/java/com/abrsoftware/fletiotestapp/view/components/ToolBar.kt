@@ -17,7 +17,7 @@ import com.abrsoftware.fletiotestapp.view.ui.theme.GreenLight
 import com.abrsoftware.fletiotestapp.view.ui.theme.PersonalStyle
 
 @Composable
-fun ToolBar(title: String) {
+fun ToolBar() {
     Box(
         modifier = Modifier
             .padding()
@@ -34,10 +34,4 @@ fun ToolBar(title: String) {
             overflow = TextOverflow.Ellipsis
         )
     }
-}
-
-@Preview
-@Composable
-fun PreToolbar(){
-    ToolBar(title = "Title")
 }

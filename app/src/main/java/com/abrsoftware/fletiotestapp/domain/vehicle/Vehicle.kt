@@ -1,7 +1,7 @@
 package com.abrsoftware.fletiotestapp.domain.vehicle
 import android.os.Parcelable
 import com.abrsoftware.fletiotestapp.data.model.VehicleModel
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Vehicle(
