@@ -53,6 +53,8 @@ fun VehicleDetail(
         stringResource(R.string.ownership).plus(" ") + vehicle.ownership.toString()
     )
     var isButtonVisible by remember { mutableStateOf(true) }
+    // Convertir StateFlow a State para recomposición reactiva
+    val commentState by viewModel.state.collectAsState()
 
     Column(
         modifier = Modifier
@@ -143,11 +145,11 @@ fun VehicleDetail(
                         }
                     )
                 }else{
-                    if(viewModel.state.isLoading) {
+                    if(commentState.isLoading) {
                         CircularProgress(BlueF)
                     }
                     
-                    viewModel.state.error?.let { error ->
+                    commentState.error?.let { error ->
                         com.abrsoftware.fletiotestapp.view.components.ErrorItem(
                             message = error,
                             onDismiss = {
@@ -158,14 +160,14 @@ fun VehicleDetail(
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                     
-                    if(viewModel.state.commentList != null && viewModel.state.commentList!!.size > 0){
+                    if(commentState.commentList != null && commentState.commentList!!.size > 0){
                         LazyColumn(
                             modifier = Modifier
                                 .padding(10.dp)
                                 .weight(1f),
                             verticalArrangement = Arrangement.spacedBy(10.dp),
                             content = {
-                                items(viewModel.state.commentList!!) { comment ->
+                                items(commentState.commentList!!) { comment ->
                                     CommentItem(comment)
                                 }
                             })

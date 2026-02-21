@@ -21,7 +21,8 @@ fun VehicleScreenList(
     onNavigate: (account: Vehicle) -> Unit
 ) {
     val vehicleList = viewModel.usersPager.collectAsLazyPagingItems()
-    val errorState = viewModel.errorState
+    // Convertir StateFlow a State para composables
+    val errorState by viewModel.errorState.collectAsState()
     
     Box(
         modifier = Modifier.fillMaxSize()
@@ -36,9 +37,9 @@ fun VehicleScreenList(
             )
             
             // Mostrar error general del ViewModel
-            if (errorState.error != null) {
+            errorState.error?.let { error ->
                 ErrorItem(
-                    message = errorState.error.message,
+                    message = error.message,
                     onDismiss = { viewModel.clearError() }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
