@@ -10,10 +10,63 @@
 /.idea/deploymentTargetDropDown.xml
 /.idea/gradle.xml
 /.idea/inspectionProfiles/
+/.idea/
+/.idea_modules/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
 /build
+/app/build
+/app/release
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+*.apk
+*.ap_
+
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Kotlin
+*.kotlin_module
+.kotlin/
+
+# Android logs
+*.log
+
+# Misc
+*.bak
+*.swp
+*~
+.#*
+
+# IDE
+.vscode/
+.history/
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# OS-specific
+Thumbs.db
+.project
+.pydevproject
+.settings/
+*.sublime-project

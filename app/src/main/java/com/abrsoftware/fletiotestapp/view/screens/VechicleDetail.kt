@@ -146,12 +146,23 @@ fun VehicleDetail(
                     if(viewModel.state.isLoading) {
                         CircularProgress(BlueF)
                     }
+                    
                     viewModel.state.error?.let { error ->
-                        BubbleText(title = error)
+                        com.abrsoftware.fletiotestapp.view.components.ErrorItem(
+                            message = error,
+                            onDismiss = {
+                                viewModel.clearError()
+                                isButtonVisible = true
+                            }
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
+                    
                     if(viewModel.state.commentList != null && viewModel.state.commentList!!.size > 0){
                         LazyColumn(
-                            modifier = Modifier.padding(10.dp),
+                            modifier = Modifier
+                                .padding(10.dp)
+                                .weight(1f),
                             verticalArrangement = Arrangement.spacedBy(10.dp),
                             content = {
                                 items(viewModel.state.commentList!!) { comment ->
